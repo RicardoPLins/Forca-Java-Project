@@ -1,0 +1,84 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
+public class JogoDaForca {
+	private ArrayList<String> palavras = new ArrayList<>(); // lista de palavras lidas do arquivo
+	private ArrayList<String> dicas = new ArrayList<>(); // lista de dicas lidas do arquivo
+	private String dica=""; // dica da palavra sorteada
+	private String[] letras; // letras da palavra sorteada
+	private int acertos; // contador de acertos
+	private int penalidade; // penalidade atual
+	public int numero;
+	
+	public JogoDaForca(String nomearquivo) throws Exception{
+		File file = new File(nomearquivo);
+		Scanner sc = null;
+		String entrada;
+		String partes[];
+		try {
+			sc = new Scanner(file);
+			while(sc.hasNextLine()) {
+				entrada = sc.nextLine();
+				partes = entrada.split(";");
+				palavras.add(partes[0]) ;
+				dicas.add(partes[1]);
+			}
+		}
+		catch(IOException e){
+			System.out.println(e.getMessage());
+		}
+	}
+	public void iniciar() {
+		Random random = new Random();
+		int numero = random.nextInt(palavras.size());
+		palavras.get(numero);
+	}
+	public String getDica() {
+		dica = dicas.get(numero);
+		return dica;
+	}
+	public ArrayList<String> getPalavras() {
+		return palavras;
+	}
+	public ArrayList<String> getDicas() {
+		return dicas;
+	}
+
+	public String[] getLetras() {
+		letras.append(palavras.get(numero).split(""));
+		return letras;
+	}
+	
+	
+	public int getTamanho() {
+		return palavras.get(numero).length();
+	}
+	public ArrayList<Integer> getPosicoes(String letra) throws Exception
+	retorna uma lista com as posições encontradas da letra na palavra sorteada ou retorna uma lista vazia. Substitui as
+	letras encontradas na palavra por “*”. Contabiliza um acerto, para cada ocorrência encontrada, ou incrementa a
+	penalidade, no caso da inexistência da letra. O parâmetro letra é válido se tem apenas 1 caractere alfabético sem
+	acento – pode ser maiúscula ou minúscula.
+	public boolean terminou() {
+		if getAcertos() = palavra.lenght(){
+			return true;
+		}
+		
+	}
+	retorna true, se o total de acertos é igual ao tamanho da palavra sorteada ou se a penalidade é 6.
+	public int getAcertos() {
+		return acertos;
+	}
+	retorna o total de acertos
+	public int getPenalidade()
+	retorna a penalidade atual (0, 1, 2, ... 6)
+	public String getResultado()
+	retorna “jogo em andamento”, “você venceu” ou “você foi enforcado”.
+
+
+
+
+
+}
