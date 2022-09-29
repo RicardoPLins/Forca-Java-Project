@@ -47,22 +47,23 @@ public class JogoDaForca {
 		return dicas;
 	}
 
+	public int getTamanho() {
+		return palavras.get(numero).length();
+	}
 	public String[] getLetras() {
-		letras.append(palavras.get(numero).split(""));
+		letras = letras.append(palavras[getTamanho()].split(""));
 		return letras;
 	}
 	
 	
-	public int getTamanho() {
-		return palavras.get(numero).length();
-	}
-	public ArrayList<Integer> getPosicoes(String letra) throws Exception
+	
+	public ArrayList<Integer> getPosicoes(String letra) throws Exception{
 	retorna uma lista com as posições encontradas da letra na palavra sorteada ou retorna uma lista vazia. Substitui as
 	letras encontradas na palavra por “*”. Contabiliza um acerto, para cada ocorrência encontrada, ou incrementa a
 	penalidade, no caso da inexistência da letra. O parâmetro letra é válido se tem apenas 1 caractere alfabético sem
 	acento – pode ser maiúscula ou minúscula.
 	public boolean terminou() {
-		if getAcertos() = palavra.lenght(){
+		if (getAcertos() = palavra.lenght()){
 			return true;
 		}
 		
@@ -71,10 +72,15 @@ public class JogoDaForca {
 	public int getAcertos() {
 		return acertos;
 	}
-	retorna o total de acertos
-	public int getPenalidade()
-	retorna a penalidade atual (0, 1, 2, ... 6)
-	public String getResultado()
+	public int getPenalidade() {
+		return penalidade;
+	}
+	public String getResultado() {
+		if (getPenalidade() > 5) {
+			System.out.println("Você foi enforcado");
+		}else {
+		}if (getAcertos() = palavra.lenght())
+	}
 	retorna “jogo em andamento”, “você venceu” ou “você foi enforcado”.
 
 
