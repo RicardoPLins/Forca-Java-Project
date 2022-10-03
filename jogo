@@ -53,10 +53,14 @@ public class JogoDaForca {
 	}
 	
 	
-//	public ArrayList<Integer> getPosicoes(String letra) throws Exception{
-//		String[] lista = 
-//		return lista;
-//	}
+	public ArrayList<Integer> getPosicoes(String letra) throws Exception{
+		if (palavrasorteada.contains(letra.toLowerCase())) {
+			acertos +=1;
+			
+		}else {
+			penalidade +=1;
+		}
+	}
 	//retorna uma lista com as posições encontradas da letra na palavra sorteada ou retorna uma lista vazia. Substitui as
 	//letras encontradas na palavra por “*”. Contabiliza um acerto, para cada ocorrência encontrada, ou incrementa a
 	//penalidade, no caso da inexistência da letra. O parâmetro letra é válido se tem apenas 1 caractere alfabético sem
@@ -76,12 +80,12 @@ public class JogoDaForca {
 	}
 	public String getResultado() {
 		if (getPenalidade() > 5) {
-			System.out.println("Você foi enforcado");
-		}else {
-		}if (acertos == palavrasorteada.length()) {
-			System.out.println("Você venceu");
-		}else {
-			System.out.println("Jogo em andamento");
+			return "Você foi enforcado";
+		}
+		if (getAcertos() == palavrasorteada.length()) {
+			return "Você venceu";}
+		else {
+			return "Jogo em andamento";
 		}
 	}
 }
