@@ -4,46 +4,39 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class JogoDaForca {
-	private ArrayList<String> palavras = new ArrayList<>(); // lista de palavras lidas do arquivo
-	private ArrayList<String> dicas = new ArrayList<>(); // lista de dicas lidas do arquivo
-	private String dica=""; //dica da palavra sorteada
-	private String[] letras; //letras da palavra sorteada
-	private int acertos; // contador de acertos
-	private int penalidade; // penalidade atual
+	private ArrayList<String> palavras = new ArrayList<>();
+	private ArrayList<String> dicas = new ArrayList<>(); 
+	private String dica=""; 
+	private String[] letras;
+	private int acertos; 
+	private int penalidade; 
 	private String palavrasorteada;
 	private int numero;
 	public JogoDaForca(String nomearquivo) throws Exception{
 		try {
-	        Scanner arquivo = new Scanner(new File(nomearquivo));
-	        String palavra, dica;
-	        String[] partes;
-	        while(arquivo.hasNextLine()) {
-	            partes = arquivo.nextLine().split(";");
-	            palavra = partes[0];
-	            dica = partes[1];
-	            this.palavras.add(palavra);
-	            this.dicas.add(dica);	
-	        }	
-	    } catch(Exception e) {
-	        throw new Exception("Arquivo não encontrado");
-	    }
+			Scanner arquivo = new Scanner(new File(nomearquivo));
+			String palavra, dica;
+			String[] partes;
+			while(arquivo.hasNextLine()) {
+				partes = arquivo.nextLine().split(";");
+				palavra = partes[0];
+				dica = partes[1];
+				this.palavras.add(palavra);
+				this.dicas.add(dica);	
+			}	
+		} catch(Exception e) {
+			throw new Exception("Arquivo não encontrado");
+		}
 	}
 	public void iniciar() {
 		Random random = new Random();
 		int numero = random.nextInt(palavras.size());
-		String palavrasorteada = palavras.get(numero);
+		palavrasorteada = palavras.get(numero);
 	}
 	public String getDica() {
 		dica = dicas.get(numero);
 		return dica;
 	}
-//	public ArrayList<String> getPalavras() {
-//		return palavras;
-//	}
-//	public ArrayList<String> getDicas() {
-//		return dicas;
-//	}
-
 	public int getTamanho() {
 		return palavrasorteada.length();
 	}
@@ -51,20 +44,24 @@ public class JogoDaForca {
 		letras = palavrasorteada.split("");
 		return letras;
 	}
-	
-	
+
+
 	public ArrayList<Integer> getPosicoes(String letra) throws Exception{
-		if (palavrasorteada.contains(letra.toLowerCase())) {
-			acertos +=1;
-			
-		}else {
-			penalidade +=1;
+		ArrayList<Integer> lista =  new ArrayList<>(); 
+
+		for(int i=0; i < letras.length; i++) {
+			if (letra == letras[i]) {
+				lista.add(i);
+				letras[i] = "*";
+				acertos +=1;
+			}
+			else {
+				penalidade +=1;
+			}
 		}
+		return lista;
 	}
-	//retorna uma lista com as posições encontradas da letra na palavra sorteada ou retorna uma lista vazia. Substitui as
-	//letras encontradas na palavra por “*”. Contabiliza um acerto, para cada ocorrência encontrada, ou incrementa a
-	//penalidade, no caso da inexistência da letra. O parâmetro letra é válido se tem apenas 1 caractere alfabético sem
-	//acento – pode ser maiúscula ou minúscula.
+
 	public boolean terminou() {
 		if (acertos == getTamanho() || getPenalidade() == 6){
 			return true;
