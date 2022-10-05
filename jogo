@@ -32,6 +32,7 @@ public class JogoDaForca {
 		Random random = new Random();
 		int numero = random.nextInt(palavras.size());
 		palavrasorteada = palavras.get(numero);
+		letras = palavrasorteada.split("");
 	}
 	public String getDica() {
 		dica = dicas.get(numero);
@@ -40,23 +41,20 @@ public class JogoDaForca {
 	public int getTamanho() {
 		return palavrasorteada.length();
 	}
-	public String[] getLetras() throws Exception {
-		letras = palavrasorteada.split("");
-		return letras;
-	}
-
 
 	public ArrayList<Integer> getPosicoes(String letra) throws Exception{
 		ArrayList<Integer> lista =  new ArrayList<>(); 
+		
 
 		for(int i=0; i < letras.length; i++) {
-			if (letra == letras[i]) {
+			if (letras[i] == letra) {
 				lista.add(i);
 				letras[i] = "*";
 				acertos +=1;
 			}
 			else {
 				penalidade +=1;
+				break;
 			}
 		}
 		return lista;
@@ -86,7 +84,6 @@ public class JogoDaForca {
 		}
 	}
 }
-
 
 
 
