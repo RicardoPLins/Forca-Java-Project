@@ -10,7 +10,6 @@ public class JogoDaForca {
 	private String[] letras;
 	private int acertos;
 	private int penalidade;
-	private String palavrasorteada;
 
 	public JogoDaForca(String nomearquivo) throws Exception {
 		try {
@@ -32,9 +31,8 @@ public class JogoDaForca {
 	public void iniciar() {
 		Random random = new Random();
 		int numero = random.nextInt(palavras.size());
-		palavrasorteada = palavras.get(numero);
+		letras = palavras.get(numero).split("");
 		dica = dicas.get(numero);
-		letras = palavrasorteada.split("");
 	}
 
 	public String getDica() {
@@ -42,21 +40,34 @@ public class JogoDaForca {
 	}
 
 	public int getTamanho() {
-		return palavrasorteada.length();
+		return letras.length;
 	}
 
 	public ArrayList<Integer> getPosicoes(String letra) throws Exception {
 		ArrayList<Integer> lista = new ArrayList<>();
+		if(letra.length()>1) {
+			throw new Exception("O parâmetro letra é válido se tem apenas"
+					+ " 1 caractere alfabético sem acento");
+		}
+		String[] prletras = {"Á","É","Í","Ó","Ú","Ã","Õ","Â",
+				"Ê","Î","Ô","Û","À","È","Ì","Ò","Ù","Ç"};
+		for (int i = 0; i < prletras.length; i++) {
+			if(prletras[i].equals(letra.toUpperCase())){
+				throw new Exception("O parâmetro letra é válido se tem apenas"
+						+ " 1 caractere alfabético sem acento");
+			}
+		}
 
 		int count = 0;
 		for (int i = 0; i < getTamanho(); i++) {
 			count += 1;
-			if (letras[i].equals(letra)) {
+			if (letras[i].equals(letra.toUpperCase())) {
 				lista.add(i);
 				letras[i] = "*";
 				acertos += 1;
-				break;
-			} else if(count == getTamanho()){
+				count =0;
+				} 
+			else if(count == getTamanho()){
 				penalidade += 1;
 			}
 		}
@@ -84,7 +95,7 @@ public class JogoDaForca {
 		if (acertos == getTamanho()) {
 			return "Você venceu";
 		}
-		if (getPenalidade() > 5) {
+		if (getPenalidade() == 6) {
 			return "Você foi enforcado";
 		} else {
 			return "Jogo em andamento";
